@@ -58,8 +58,7 @@ contract NFTMarketplace is ERC721URIStorage{
     function createToken(string memory tokenURI, uint256 price) public payable returns(uint){
         require(msg.value == listPrice, "Send enough ether to list");
         require(price > 0, "Make sure the price isn't negative");
-         
-        _tokenIds.increment();
+           _tokenIds.increment();
         uint256 currentTokenId = _tokenIds.current();
         _safeMint(msg.sender, currentTokenId);
 
@@ -68,8 +67,7 @@ contract NFTMarketplace is ERC721URIStorage{
         createListedToken(currentTokenId, price);
 
         return currentTokenId;
-    
-    }
+     }
 
     function createListedToken(uint256 tokenId, uint256 price) private{
         idToListedToken[tokenId] = ListedToken(
@@ -126,8 +124,7 @@ contract NFTMarketplace is ERC721URIStorage{
     function executeSale(uint256 tokenId) public payable{
         uint price = idToListedToken[tokenId].price;
         require(msg.value == price, "Please submit the asking price for the NFT in order to purchase");
-        
-        address seller = idToListedToken[tokenId].seller;
+            address seller = idToListedToken[tokenId].seller;
 
         idToListedToken[tokenId].currentlyListed = true;
         idToListedToken[tokenId].seller = payable(msg.sender);
@@ -140,6 +137,5 @@ contract NFTMarketplace is ERC721URIStorage{
         payable(owner).transfer(listPrice);
         payable(seller).transfer(msg.value);
 
-        
-    }
+        }
 }

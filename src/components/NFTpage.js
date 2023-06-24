@@ -23,7 +23,7 @@ async function getNFTData(tokenId) {
     let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
     //create an NFT Token
     var tokenURI = await contract.tokenURI(tokenId);
-    const listedToken = await contract.getListedTokenForId(tokenId);
+    const listedToken = await contract.getListedForTokenId(tokenId);
     tokenURI = GetIpfsUrlFromPinata(tokenURI);
     let meta = await axios.get(tokenURI);
     meta = meta.data;
